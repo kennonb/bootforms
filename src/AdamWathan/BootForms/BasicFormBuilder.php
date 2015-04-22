@@ -49,6 +49,11 @@ class BasicFormBuilder
 		return $this->formGroup($label, $name, $control);
 	}
 
+	public function button($value, $name = null, $type = "btn-default")
+	{
+		return $this->builder->button($value, $name)->addClass('btn')->addClass($type);
+	}
+
 	public function submit($value = "Submit", $type = "btn-default")
 	{
 		return $this->builder->submit($value)->addClass('btn')->addClass($type);
@@ -111,10 +116,16 @@ class BasicFormBuilder
 		return $this->formGroup($label, $name, $control);
 	}
 
-	public function inlineCheckbox($label, $name)
+	public function inlineCheckbox($label, $name, $checked = false)
 	{
 		$label = $this->builder->label($label)->addClass('checkbox-inline');
 		$control = $this->builder->checkbox($name);
+
+		if ($checked) {
+			$control->check();
+		} else {
+			$control->uncheck();
+		}
 
 		return $label->after($control);
 	}

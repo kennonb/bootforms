@@ -151,6 +151,20 @@ class BasicFormBuilderTest extends PHPUnit_Framework_TestCase
 		$this->assertEquals($expected, $result);
 	}
 
+	public function testRenderButton()
+	{
+		$expected = '<button type="button" class="btn btn-default">Click Me</button>';
+		$result = $this->form->button('Click Me')->render();
+		$this->assertEquals($expected, $result);
+	}
+
+	public function testRenderButtonWithNameAndAlternateStyling()
+	{
+		$expected = '<button type="button" name="success" class="btn btn-success">Click Me</button>';
+		$result = $this->form->button('Click Me', 'success', 'btn-success')->render();
+		$this->assertEquals($expected, $result);
+	}
+
 	public function testRenderSubmit()
 	{
 		$expected = '<button type="submit" class="btn btn-default">Submit</button>';
@@ -455,6 +469,14 @@ class BasicFormBuilderTest extends PHPUnit_Framework_TestCase
 		$this->form->bind($object);
 		$expected = '<div class="form-group"><label class="control-label" for="first_name">First Name</label><input type="text" name="first_name" value="John" id="first_name" class="form-control"></div>';
 		$result = $this->form->text('First Name', 'first_name')->render();
+		$this->assertEquals($expected, $result);
+	}
+
+
+	public function testCanHideLabels()
+	{
+		$expected = '<div class="form-group"><label class="control-label sr-only" for="email">Email</label><input type="text" name="email" id="email" class="form-control"></div>';
+		$result = $this->form->text('Email', 'email')->hideLabel()->render();
 		$this->assertEquals($expected, $result);
 	}
 
